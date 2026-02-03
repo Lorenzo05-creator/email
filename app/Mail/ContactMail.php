@@ -13,6 +13,7 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+ 
     public $userData; 
 
     public function __construct($_userData)
@@ -23,6 +24,7 @@ class ContactMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+           
             from: new Address($this->userData['email'], $this->userData['name']),
             subject: 'Nuovo Contatto dal Sito',
         );
@@ -31,7 +33,13 @@ class ContactMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.contact', 
+            
+            view: 'emails.contact', 
         );
+    }
+
+    public function attachments(): array
+    {
+        return [];
     }
 }
